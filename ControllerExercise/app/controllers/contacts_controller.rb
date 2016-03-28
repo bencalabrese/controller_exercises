@@ -40,6 +40,7 @@ class ContactsController < ApplicationController
 
   private
   def contact_params
+    # not secure to include user_id, but just for learning purposes
     params.require(:contact).permit(:user_id, :name, :email)
   end
 end
