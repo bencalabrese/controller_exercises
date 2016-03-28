@@ -5,13 +5,13 @@ def create_user
   scheme: 'http',
   host: 'localhost',
   port: 3000,
-  path: '/users'
+  path: '/users/4'
   ).to_s
 
   #puts RestClient.get(url)
 
   begin
-    puts RestClient.get(url)
+    puts RestClient.delete(url)
   rescue RestClient::Found
     puts RestClient.get(url[0..-2])
   end
