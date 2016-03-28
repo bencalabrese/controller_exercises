@@ -1,14 +1,36 @@
 class UsersController < ApplicationController
   def index
-    render json: user_params
+    render json: User.all
   end
 
   def create
-    render json: user_params
+    user = User.new(user_params)
+    if user.save
+      render json: user
+    else
+      render(
+        json: user.errors.full_messages, status: :unprocessable_entity
+      )
+    end
+  end
+
+  def show
+    render json: User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update!(user_params)
+    redirect_to show_user_url(@user)
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    redirect_to users_url
   end
 
   private
   def user_params
-    params.require(:user).permit(:name, :height)
+    params.require(:user).permit(:name, :email)
   end
 end
