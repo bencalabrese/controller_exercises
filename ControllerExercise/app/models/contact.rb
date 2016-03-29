@@ -20,8 +20,10 @@ class Contact < ActiveRecord::Base
     class_name: :User
 
   has_many :contact_shares
-  
+
   has_many :shared_users,
     through: :contact_shares,
     source: :user
+
+  has_many :comments, as: :commentable
 end
